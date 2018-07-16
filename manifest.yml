@@ -1,0 +1,33 @@
+---
+applications:
+- name: WSQCUserInterfaceNew
+  memory: 256M
+  processes:
+    web: npm run-script
+  env:
+    CRAWL_LEVEL: 1
+    CRAWLER_SERVICE_URL: http://wsqccrawlerservice.${target-base}/crawlreport?
+    WEBSITE_SEPARATER: ","
+    REPORT_TABLE_DATA_LIMIT: 11
+    SOCKET_IO_URL: http://wsqccommunicationservices.${target-base}
+    CACHE_POPULAR_REPORT_URL: http://WSQCServiceManagement.${target-base}/read-popular-websites
+    CACHE_RETRIEVE_REPORT_URL: http://wsqcreports.${target-base}/websitequalitychecker/popularcrawlreport?
+    DATASERVICE_UPDATE_REPORT_URL: http://wsqcreports.${target-base}/dataservice/update
+    DATASERVICE_CONNECTION_TEST_URL: http://wsqcreports.${target-base}/dataservice/check-Availability
+    CRAWLER_SERVICE_CONNECTION_TEST_URL: http://wsqccrawlerservice.${target-base}/crawlerhealthcheck
+    CACHE_CONNECTION_TEST_URL: http://WSQCServiceManagement.${target-base}/check-Availability
+    SERVICE_TIMEOUT_THRESHOLD: 400000
+    ROUTER_SERVICE_URL: http://WSQCServiceManagement.${target-base}/get-next-action
+    CRAWLER_HEALTH_CHECK_URL: /crawler-health-check
+    NODE_HEALTH_CHECK_URL: /node-health-check
+    QUEUE_HEALTH_CHECK_URL: /queue-health-check
+    SERVICE_RETRY_THRESHOLD: 30000
+    REQUEST_VOLUME_THRESHOLD: 0
+    SLEEP_WINDOW_TIME: 300000
+    RABBITMQ_SERVICE: wsqc-rabbitmq3
+    CRAWLER_QUEUE: DATA_SERVICE_QUEUE
+    REPORT_QUEUE: REPORT_DATA_QUEUE
+    NODE_SERVICE_CONNECTION_TEST_URL: http://wsqccommunicationservices.${target-base}/listener-health-check
+    QUEUE_SERVICE_CONNECTION_TEST_URL: http://api.16.202.66.191.xip.io:30002/api/aliveness-test/vdc062b83bcbc412e946b0f5be889218d
+  services:
+   wsqc-rabbitmq3: rabbitmq3
